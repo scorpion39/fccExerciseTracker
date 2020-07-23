@@ -1,23 +1,22 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+const connectDB = require("./config/db");
 const notFound = require("./middleware/not_found");
 const errorHandler = require("./middleware/error_handler");
 
-const connectDB = require("./config/db");
-
 const app = express();
-
 dotenv.config({ path: "./config/config.env" });
 
-// mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
+//App middleware
 app.use(cors());
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 connectDB();
 
+//Static folder
 app.use(express.static("public"));
 
 //Routes
@@ -27,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/exercise", require("./routes/app"));
 
-//middleware
+//self-middleware
 app.use(notFound);
 app.use(errorHandler);
 

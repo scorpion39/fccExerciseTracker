@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ExerciseSchema } = require("../models/Exercise");
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -7,10 +8,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
   },
 
-  // createdAt: {
-  //   type: Date,
-  //   default: Date.now,
-  // },
+  log: [ExerciseSchema],
 });
 
 module.exports = mongoose.model("User", UserSchema);
